@@ -1,5 +1,5 @@
 import Toolbar from '@/components/toolbar';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import { useSimulationStore } from '@/store';
 import {
   addEdge,
   applyEdgeChanges,
@@ -8,13 +8,14 @@ import {
   BackgroundVariant,
   Panel,
   ReactFlow,
-  ReactFlowProvider,
+  useReactFlow,
   type Edge,
   type Node,
   type OnNodesChange,
   type ReactFlowProps,
 } from '@xyflow/react';
 import { useCallback, useState } from 'react';
+import { useShallow } from 'zustand/shallow';
 
 const initialNodes: Node[] = [
   { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
@@ -24,6 +25,12 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2' }];
 
 export default function App() {
+  const { addingType, cancelAdding } = useSimulationStore(
+    useShallow((store) => ({ addingType: store.addingType, cancelAdding: store.cancelAdding }))
+  );
+
+  const { screenToFlowPosition, updateNode } = useReactFlow();
+
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
@@ -39,27 +46,45 @@ export default function App() {
     (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     []
   );
+
+  function onPaneMouseMove(e: React.MouseEvent) {
+    if (!addingType) return;
+
+    const position = screenToFlowPosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+
+    updateNode('draft', { position });
+  }
+
+  function handleOnPaneClick() {
+    if (!addingType) return;
+
+    cancelAdding();
+
+    updateNode('draft', { id: crypto.randomUUID() });
+  }
+
   return (
     <div className='w-dvw h-dvh'>
-      <TooltipProvider>
-        <ReactFlowProvider>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            minZoom={0.25}
-            maxZoom={2}
-            fitView
-          >
-            <Background variant={BackgroundVariant.Dots} />
-            <Panel position='bottom-center'>
-              <Toolbar />
-            </Panel>
-          </ReactFlow>
-        </ReactFlowProvider>
-      </TooltipProvider>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onPaneMouseMove={onPaneMouseMove}
+        onPaneClick={handleOnPaneClick}
+        minZoom={0.25}
+        maxZoom={2}
+        fitView
+      >
+        <Background variant={BackgroundVariant.Dots} />
+        <Panel position='bottom-center'>
+          <Toolbar />
+        </Panel>
+      </ReactFlow>
     </div>
   );
 }

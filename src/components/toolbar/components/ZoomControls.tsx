@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-} from '@/components/ui/select';
-import { IconBorderCorners } from '@tabler/icons-react';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { IconBorderCorners, IconSelector } from '@tabler/icons-react';
 import { useOnViewportChange, useReactFlow } from '@xyflow/react';
 import { useEffect, useState } from 'react';
 
@@ -37,19 +37,32 @@ export default function ZoomControls() {
       <Button variant='ghost' size='icon-lg' onClick={() => flow.fitView()}>
         <IconBorderCorners className='w-5! h-5!' />
       </Button>
-      <Select defaultValue={String(zoom)}>
-        <SelectTrigger className='w-32 h-9!'>{(zoom * 100).toFixed(0)}%</SelectTrigger>
-        <SelectContent position='popper'>
-          <SelectGroup>
-            <SelectLabel>Zoom level</SelectLabel>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            size='lg'
+            variant='outline'
+            className='bg-transparent! w-32 justify-between py-2 pl-2.5 pr-2 font-normal'
+          >
+            {(zoom * 100).toFixed(0)}%
+            <IconSelector className='text-muted-foreground' />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='center' className='w-fit'>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
             {zoomLevels.map((val, index) => (
-              <SelectItem key={index} value={val.value} onClick={() => setZoom(Number(val.value))}>
+              <DropdownMenuItem
+                key={index}
+                className='min-w-34'
+                onClick={() => setZoom(Number(val.value))}
+              >
                 {val.label}
-              </SelectItem>
+              </DropdownMenuItem>
             ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
