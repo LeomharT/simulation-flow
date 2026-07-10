@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import ZoomControls from './components/ZoomControls';
 
 const classNames = {
   card: clsx('py-1 justify-center'),
@@ -17,7 +18,7 @@ export default function Toolbar() {
     <div className='flex flex-row gap-3'>
       <Card className={classNames.card}>
         <CardContent className={classNames.content}>
-          123
+          <ZoomControls />
           <Separator orientation='vertical' className={classNames.sepearator} />
           <Button size='lg' className={classNames.button}>
             <IconPlus />
@@ -28,7 +29,7 @@ export default function Toolbar() {
       <Card className={classNames.card}>
         <CardContent className={classNames.content}>
           <Button size='lg' variant='ghost'>
-            <div className='border rounded-full w-7 h-7 bg-teal-500 flex items-center justify-center'>
+            <div className='border rounded-full w-7 h-7 bg-blue-500 flex items-center justify-center'>
               <IconAiAgents className='w-5! h-5! stroke-white' />
             </div>
             Agent
