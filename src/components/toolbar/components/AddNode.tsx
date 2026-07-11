@@ -11,9 +11,11 @@ import { Separator } from '@/components/ui/separator';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
 import { IconBoltFilled, IconPlus, IconSearch } from '@tabler/icons-react';
-import { useReactFlow, type Node } from '@xyflow/react';
+import { useKeyPress, useReactFlow, type Node } from '@xyflow/react';
 import clsx from 'clsx';
 import type React from 'react';
+import { useEffect } from 'react';
+import { useShallow } from 'zustand/shallow';
 
 const classNames = {
   label: clsx('flex h-5.5 items-start text-sm font-medium text-muted-foreground'),
@@ -22,9 +24,17 @@ const classNames = {
 export default function AddNode() {
   const [open, setOpen] = useToggle([true, false]);
 
-  const setAddingType = useSimulationStore((store) => store.setAddingType);
+  const escPress = useKeyPress('Escape');
 
-  const { screenToFlowPosition, setNodes } = useReactFlow();
+  const { addingType, setAddingType, cancelAdding } = useSimulationStore(
+    useShallow((store) => ({
+      setAddingType: store.setAddingType,
+      addingType: store.addingType,
+      cancelAdding: store.cancelAdding,
+    }))
+  );
+
+  const { screenToFlowPosition, setNodes, deleteElements } = useReactFlow();
 
   function addNewNode(e: React.MouseEvent, type: string = 'power') {
     setOpen(false);
@@ -44,6 +54,13 @@ export default function AddNode() {
 
     setNodes((node) => [...node, newNode]);
   }
+
+  useEffect(() => {
+    if (addingType && escPress) {
+      cancelAdding();
+      deleteElements({ nodes: [{ id: 'draft' }] });
+    }
+  }, [escPress, addingType, cancelAdding, deleteElements]);
 
   return (
     <Popover modal open={open} onOpenChange={setOpen}>
