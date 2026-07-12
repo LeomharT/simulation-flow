@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
+import type { nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
 import { IconBoltFilled, IconPlus, IconSearch } from '@tabler/icons-react';
@@ -36,7 +37,7 @@ export default function AddNode() {
 
   const { screenToFlowPosition, setNodes, deleteElements } = useReactFlow();
 
-  function addNewNode(e: React.MouseEvent, type: string = 'power') {
+  function addNewNode(e: React.MouseEvent, type: keyof typeof nodeTypes) {
     setOpen(false);
 
     setAddingType(type);
@@ -48,6 +49,7 @@ export default function AddNode() {
 
     const newNode: Node = {
       id: 'draft',
+      type,
       data: { label: type + 'Nodes' },
       position,
     };
@@ -82,7 +84,7 @@ export default function AddNode() {
         </InputGroup>
         <Separator className='-ml-2.5 -mr-2.5 w-[inherit]!' />
         <div className={classNames.label}>Power</div>
-        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, 'power')}>
+        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, 'powerNode')}>
           <div className='rounded p-1 bg-blue-600 text-white'>
             <IconBoltFilled />
           </div>

@@ -1,4 +1,5 @@
 import Toolbar from '@/components/toolbar';
+import { nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import {
   addEdge,
@@ -58,7 +59,7 @@ export default function App() {
     updateNode('draft', { position });
   }
 
-  function handleOnPaneClick() {
+  function handleOnNodeClick() {
     if (!addingType) return;
 
     cancelAdding();
@@ -69,13 +70,14 @@ export default function App() {
   return (
     <div className='w-dvw h-dvh'>
       <ReactFlow
+        nodeTypes={nodeTypes}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onPaneMouseMove={onPaneMouseMove}
-        onPaneClick={handleOnPaneClick}
+        onNodeClick={handleOnNodeClick}
         minZoom={0.25}
         maxZoom={2}
         fitView
