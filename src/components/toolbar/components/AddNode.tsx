@@ -50,7 +50,7 @@ export default function AddNode() {
     const newNode: Node = {
       id: 'draft',
       type,
-      data: { label: type + 'Nodes' },
+      data: { label: type },
       position,
     };
 

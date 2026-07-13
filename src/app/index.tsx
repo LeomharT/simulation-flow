@@ -21,9 +21,11 @@ import { useShallow } from 'zustand/shallow';
 const initialNodes: Node[] = [
   { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
   { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
+  { id: 'powerNode', position: { x: 0, y: -100 }, type: 'powerNode', data: {} },
+  { id: 'lightNode', position: { x: 300, y: -100 }, type: 'lightNode', data: {} },
 ];
 
-const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2' }];
+const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];
 
 export default function App() {
   const { addingType, cancelAdding } = useSimulationStore(
@@ -59,7 +61,7 @@ export default function App() {
     updateNode('draft', { position });
   }
 
-  function handleOnNodeClick() {
+  function onPlaceNode() {
     if (!addingType) return;
 
     cancelAdding();
@@ -77,7 +79,8 @@ export default function App() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onPaneMouseMove={onPaneMouseMove}
-        onNodeClick={handleOnNodeClick}
+        onPaneClick={onPlaceNode}
+        onNodeClick={onPlaceNode}
         minZoom={0.25}
         maxZoom={2}
         fitView
