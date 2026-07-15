@@ -1,11 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { IconBoltFilled, IconMinus, IconPlus } from '@tabler/icons-react';
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
+import {
+  IconBoltFilled,
+  IconCircuitAmmeter,
+  IconCircuitVoltmeter,
+  IconMinus,
+  IconPlus,
+} from '@tabler/icons-react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import clsx from 'clsx';
 
 type PowerNodeProps = NodeProps & {
   data: {
     label: string;
+    voltage: string;
+    ampere: string;
   };
 };
 
@@ -18,16 +27,35 @@ export default function PowerNode(props: PowerNodeProps) {
   return (
     <Card className='w-50 [--card-spacing:--spacing(2)] ring-0 hover:shadow-sm transition-shadow'>
       <CardHeader>
-        <CardTitle>
-          <div className='flex flex-row items-center gap-4'>
-            <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-blue-600 text-white'>
-              <IconBoltFilled className='w-3! h-3!' />
-            </div>
-            Power Source
+        <CardTitle className='flex flex-row items-center gap-4'>
+          <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-blue-600 text-white'>
+            <IconBoltFilled className='w-3! h-3!' />
           </div>
+          Power Source
         </CardTitle>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <Item variant='muted' size='xs' className='mb-1 p-1'>
+          <ItemMedia variant='icon'>
+            <IconCircuitVoltmeter />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>
+              Voltage <ItemDescription>{props.data.voltage}</ItemDescription>
+            </ItemTitle>
+          </ItemContent>
+        </Item>
+        <Item variant='muted' size='xs' className='p-1'>
+          <ItemMedia variant='icon'>
+            <IconCircuitAmmeter />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>
+              Ampere <ItemDescription>{props.data.ampere}</ItemDescription>
+            </ItemTitle>
+          </ItemContent>
+        </Item>
+      </CardContent>
       <Handle
         id='positive'
         type='source'
@@ -39,7 +67,7 @@ export default function PowerNode(props: PowerNodeProps) {
       <Handle
         id='negative'
         type='source'
-        className={clsx(classNames.handle, 'bg-sky-900 -translate-x-2')}
+        className={clsx(classNames.handle, 'bg-sky-800! -translate-x-2')}
         position={Position.Bottom}
       >
         <IconMinus className={classNames.icon} />

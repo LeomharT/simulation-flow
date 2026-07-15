@@ -21,7 +21,12 @@ import { useShallow } from 'zustand/shallow';
 const initialNodes: Node[] = [
   { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
   { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
-  { id: 'powerNode', position: { x: 0, y: -100 }, type: 'powerNode', data: {} },
+  {
+    id: 'powerNode',
+    position: { x: 0, y: -100 },
+    type: 'powerNode',
+    data: { voltage: '12V', ampere: '3A' },
+  },
   { id: 'lightNode', position: { x: 300, y: -100 }, type: 'lightNode', data: {} },
 ];
 

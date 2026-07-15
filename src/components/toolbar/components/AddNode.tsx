@@ -54,6 +54,15 @@ export default function AddNode() {
       position,
     };
 
+    switch (type) {
+      case 'powerNode':
+        newNode.data.voltage = '12V';
+        newNode.data.ampere = '3A';
+        break;
+      default:
+        break;
+    }
+
     setNodes((node) => [...node, newNode]);
   }
 
