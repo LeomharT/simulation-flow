@@ -38,7 +38,7 @@ export default function App() {
     useShallow((store) => ({ addingType: store.addingType, cancelAdding: store.cancelAdding }))
   );
 
-  const { screenToFlowPosition, updateNode } = useReactFlow();
+  const { screenToFlowPosition, updateNode, getNode } = useReactFlow();
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -55,6 +55,11 @@ export default function App() {
     const edge = {
       ...params,
     } as Edge;
+
+    const targetNode = getNode(params.target);
+    const sourceNode = getNode(params.source);
+
+    console.log(targetNode, sourceNode);
 
     if (params.sourceHandle !== params.targetHandle) {
       edge.type = 'buttonEdge';
@@ -90,6 +95,7 @@ export default function App() {
         edgeTypes={edgeTypes}
         nodes={nodes}
         edges={edges}
+        deleteKeyCode={['Delete']}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}

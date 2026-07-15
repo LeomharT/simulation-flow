@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import type { nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
-import { IconBoltFilled, IconPlus, IconSearch } from '@tabler/icons-react';
+import { IconBoltFilled, IconBulbFilled, IconPlus, IconSearch } from '@tabler/icons-react';
 import { useKeyPress, useReactFlow, type Node } from '@xyflow/react';
 import clsx from 'clsx';
 import type React from 'react';
@@ -98,6 +98,13 @@ export default function AddNode() {
             <IconBoltFilled />
           </div>
           Power Source
+        </Button>
+        <div className={classNames.label}>Device</div>
+        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, 'lightNode')}>
+          <div className='rounded p-1 bg-violet-600 text-white'>
+            <IconBulbFilled />
+          </div>
+          Light
         </Button>
       </PopoverContent>
     </Popover>

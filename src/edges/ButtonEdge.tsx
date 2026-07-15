@@ -1,3 +1,4 @@
+import { IconX } from '@tabler/icons-react';
 import {
   BaseEdge,
   EdgeLabelRenderer,
@@ -24,7 +25,11 @@ export default function ButtonEdge(props: EdgeProps) {
 
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={props.markerEnd} style={props.style} />
+      <BaseEdge
+        path={edgePath}
+        markerEnd={props.markerEnd}
+        style={{ stroke: 'oklch(58.6% 0.253 17.585)' }}
+      />
       <EdgeLabelRenderer>
         <div
           className='button-edge__label nodrag nopan'
@@ -33,7 +38,7 @@ export default function ButtonEdge(props: EdgeProps) {
           }}
         >
           <button className='button-edge__button' onClick={onEdgeClick}>
-            ×
+            <IconX className='w-3! h-3! stroke-3' />
           </button>
         </div>
       </EdgeLabelRenderer>
