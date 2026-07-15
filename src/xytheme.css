@@ -1,8 +1,33 @@
 .react-flow {
   --xy-background-color: #f7f9fb;
+  --xy-theme-muted-bg: #f3f4f6;
+  --xy-theme-hover: #c5c5c5;
 }
 
 .react-flow__handle-bottom {
   top: 100%;
   transform: translate(-50%, -50%);
+}
+
+/* Button Edge */
+
+.button-edge__label {
+  position: absolute;
+  pointer-events: all;
+  transform-origin: center;
+}
+
+.button-edge__button {
+  width: 30px;
+  height: 30px;
+  color: var(--xy-edge-node-color-default);
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 12px;
+  padding-top: 0px;
+}
+
+.button-edge__button:hover {
+  background-color: var(--xy-theme-hover);
+  color: #ffffff;
 }

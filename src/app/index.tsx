@@ -1,4 +1,5 @@
 import Toolbar from '@/components/toolbar';
+import { edgeTypes } from '@/edges';
 import { nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import {
@@ -19,15 +20,15 @@ import { useCallback, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 const initialNodes: Node[] = [
-  { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
-  { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
+  // { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
+  // { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
   {
     id: 'powerNode',
     position: { x: 0, y: -100 },
     type: 'powerNode',
     data: { voltage: '12V', ampere: '3A' },
   },
-  { id: 'lightNode', position: { x: 300, y: -100 }, type: 'lightNode', data: {} },
+  { id: 'lightNode', position: { x: 0, y: 100 }, type: 'lightNode', data: {} },
 ];
 
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];
@@ -50,10 +51,18 @@ export default function App() {
     (changes) => setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     []
   );
-  const onConnect: ReactFlowProps['onConnect'] = useCallback(
-    (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    []
-  );
+  const onConnect: ReactFlowProps['onConnect'] = useCallback((params) => {
+    const edge = {
+      ...params,
+    } as Edge;
+
+    if (params.sourceHandle !== params.targetHandle) {
+      edge.type = 'buttonEdge';
+      edge.animated = true;
+    }
+
+    setEdges((edgesSnapshot) => addEdge(edge, edgesSnapshot));
+  }, []);
 
   function onPaneMouseMove(e: React.MouseEvent) {
     if (!addingType) return;
@@ -78,6 +87,7 @@ export default function App() {
     <div className='w-dvw h-dvh'>
       <ReactFlow
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}

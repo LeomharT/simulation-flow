@@ -1,5 +1,12 @@
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { IconBulbFilled } from '@tabler/icons-react';
+import { IconBulbFilled, IconMinus, IconPlus } from '@tabler/icons-react';
+import { Handle, Position } from '@xyflow/react';
+import clsx from 'clsx';
+
+const classNames = {
+  handle: clsx('w-2.5! h-2.5! rounded-full flex items-center justify-center'),
+  icon: clsx('w-1.5! h-1.5! stroke-white stroke-5'),
+};
 
 export default function LightNode() {
   return (
@@ -12,6 +19,22 @@ export default function LightNode() {
           Light
         </CardTitle>
       </CardHeader>
+      <Handle
+        id='positive'
+        type='target'
+        className={clsx(classNames.handle, 'bg-rose-500! translate-x-2')}
+        position={Position.Top}
+      >
+        <IconPlus className={classNames.icon} />
+      </Handle>
+      <Handle
+        id='negative'
+        type='target'
+        className={clsx(classNames.handle, 'bg-sky-800! -translate-x-2')}
+        position={Position.Top}
+      >
+        <IconMinus className={classNames.icon} />
+      </Handle>
     </Card>
   );
 }
