@@ -23,7 +23,7 @@ const classNames = {
 };
 
 export default function AddNode() {
-  const [open, setOpen] = useToggle([true, false]);
+  const [open, setOpen] = useToggle();
 
   const escPress = useKeyPress('Escape');
 

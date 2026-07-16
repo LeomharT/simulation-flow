@@ -1,10 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { IconAiAgents, IconClockPlay, IconPlayerPlayFilled } from '@tabler/icons-react';
+import { IconClockPlay, IconPlayerPlayFilled } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import AddNode from './components/AddNode';
+import AIAgent from './components/AIAgent';
 import ZoomControls from './components/ZoomControls';
 
 const classNames = {
@@ -26,12 +27,7 @@ export default function Toolbar() {
       </Card>
       <Card className={classNames.card}>
         <CardContent className={classNames.content}>
-          <Button size='lg' variant='ghost'>
-            <div className='border rounded-full w-7 h-7 bg-blue-500 flex items-center justify-center'>
-              <IconAiAgents className='w-5! h-5! stroke-white' />
-            </div>
-            AI Agent
-          </Button>
+          <AIAgent />
           <Separator orientation='vertical' className={classNames.sepearator} />
           <div className='flex flex-row gap-2'>
             <Tooltip>

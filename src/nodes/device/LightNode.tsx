@@ -3,7 +3,8 @@ import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/comp
 import {
   IconBulbFilled,
   IconCheck,
-  IconCircuitAmmeter,
+  IconCircuitSwitchClosed,
+  IconCircuitSwitchOpen,
   IconMinus,
   IconPlus,
   IconX,
@@ -35,30 +36,30 @@ export default function LightNode(props: LightNodeProps) {
           </div>
           Light
         </CardTitle>
-        <CardContent>
-          <Item
-            variant='muted'
-            size='xs'
-            className={clsx('p-1', isValidPowerSource() ? 'bg-green-100' : 'bg-rose-100')}
-          >
-            <ItemMedia variant='icon'>
-              <IconCircuitAmmeter />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>
-                Coneection
-                <ItemDescription>
-                  {isValidPowerSource() ? (
-                    <IconCheck className='w-3! h-3!' />
-                  ) : (
-                    <IconX className='w-3! h-3!' />
-                  )}
-                </ItemDescription>
-              </ItemTitle>
-            </ItemContent>
-          </Item>
-        </CardContent>
       </CardHeader>
+      <CardContent>
+        <Item
+          variant='muted'
+          size='xs'
+          className={clsx('p-1', isValidPowerSource() ? 'bg-green-100' : 'bg-rose-100')}
+        >
+          <ItemMedia variant='icon'>
+            {isValidPowerSource() ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>
+              Coneection
+              <ItemDescription>
+                {isValidPowerSource() ? (
+                  <IconCheck className='w-3! h-3!' />
+                ) : (
+                  <IconX className='w-3! h-3!' />
+                )}
+              </ItemDescription>
+            </ItemTitle>
+          </ItemContent>
+        </Item>
+      </CardContent>
       <Handle
         id='positive'
         type='target'
