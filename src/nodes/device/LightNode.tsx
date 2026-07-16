@@ -1,6 +1,14 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { IconBulbFilled, IconMinus, IconPlus } from '@tabler/icons-react';
-import { Handle, Position, type NodeProps } from '@xyflow/react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
+import {
+  IconBulbFilled,
+  IconCheck,
+  IconCircuitAmmeter,
+  IconMinus,
+  IconPlus,
+  IconX,
+} from '@tabler/icons-react';
+import { Handle, Position, useNodeConnections, type NodeProps } from '@xyflow/react';
 import clsx from 'clsx';
 
 type LightNodeProps = NodeProps & {};
@@ -11,6 +19,13 @@ const classNames = {
 };
 
 export default function LightNode(props: LightNodeProps) {
+  const connections = useNodeConnections();
+
+  function isValidPowerSource() {
+    if (connections.length < 2) return false;
+    return connections.every((item) => item.sourceHandle === item.targetHandle);
+  }
+
   return (
     <Card className='w-50 [--card-spacing:--spacing(2)] ring-0 hover:shadow-sm transition-shadow'>
       <CardHeader>
@@ -20,6 +35,29 @@ export default function LightNode(props: LightNodeProps) {
           </div>
           Light
         </CardTitle>
+        <CardContent>
+          <Item
+            variant='muted'
+            size='xs'
+            className={clsx('p-1', isValidPowerSource() ? 'bg-green-100' : 'bg-rose-100')}
+          >
+            <ItemMedia variant='icon'>
+              <IconCircuitAmmeter />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                Coneection
+                <ItemDescription>
+                  {isValidPowerSource() ? (
+                    <IconCheck className='w-3! h-3!' />
+                  ) : (
+                    <IconX className='w-3! h-3!' />
+                  )}
+                </ItemDescription>
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+        </CardContent>
       </CardHeader>
       <Handle
         id='positive'

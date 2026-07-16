@@ -56,15 +56,13 @@ export default function App() {
       ...params,
     } as Edge;
 
-    const targetNode = getNode(params.target);
-    const sourceNode = getNode(params.source);
-
-    console.log(targetNode, sourceNode);
-
     if (params.sourceHandle !== params.targetHandle) {
       edge.type = 'buttonEdge';
       edge.animated = true;
     }
+
+    const sourceNode = getNode(params.source);
+    const targetNode = getNode(params.target);
 
     setEdges((edgesSnapshot) => addEdge(edge, edgesSnapshot));
   }, []);

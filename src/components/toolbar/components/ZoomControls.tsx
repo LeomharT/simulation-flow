@@ -7,6 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { IconBorderCorners, IconSelector } from '@tabler/icons-react';
 import { useOnViewportChange, useReactFlow } from '@xyflow/react';
 import { useEffect, useState } from 'react';
@@ -34,9 +35,14 @@ export default function ZoomControls() {
 
   return (
     <div className='z-50 relative flex flex-row gap-1 items-center'>
-      <Button variant='ghost' size='icon-lg' onClick={() => flow.fitView()}>
-        <IconBorderCorners className='w-5! h-5!' />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant='ghost' size='icon-lg' onClick={() => flow.fitView()}>
+            <IconBorderCorners className='w-5! h-5!' />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className='[&_svg]:hidden!'>Fit View</TooltipContent>
+      </Tooltip>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -50,7 +56,7 @@ export default function ZoomControls() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='center' className='w-fit'>
           <DropdownMenuGroup>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Zoom Level</DropdownMenuLabel>
             {zoomLevels.map((val, index) => (
               <DropdownMenuItem
                 key={index}
