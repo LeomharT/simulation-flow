@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
+import LimitedHandle from '@/handle/LimitedHandle';
 import {
   IconBulbFilled,
   IconCheck,
@@ -9,7 +10,7 @@ import {
   IconPlus,
   IconX,
 } from '@tabler/icons-react';
-import { Handle, Position, useNodeConnections, type NodeProps } from '@xyflow/react';
+import { Position, useNodeConnections, type NodeProps } from '@xyflow/react';
 import clsx from 'clsx';
 
 type LightNodeProps = NodeProps & {};
@@ -48,7 +49,7 @@ export default function LightNode(props: LightNodeProps) {
           </ItemMedia>
           <ItemContent>
             <ItemTitle>
-              Coneection
+              Connection
               <ItemDescription>
                 {isValidPowerSource() ? (
                   <IconCheck className='w-3! h-3!' />
@@ -60,22 +61,24 @@ export default function LightNode(props: LightNodeProps) {
           </ItemContent>
         </Item>
       </CardContent>
-      <Handle
+      <LimitedHandle
         id='positive'
         type='target'
         className={clsx(classNames.handle, 'bg-rose-500! translate-x-2')}
         position={Position.Top}
+        connectionCount={1}
       >
         <IconPlus className={classNames.icon} />
-      </Handle>
-      <Handle
+      </LimitedHandle>
+      <LimitedHandle
         id='negative'
         type='target'
         className={clsx(classNames.handle, 'bg-sky-800! -translate-x-2')}
         position={Position.Top}
+        connectionCount={1}
       >
         <IconMinus className={classNames.icon} />
-      </Handle>
+      </LimitedHandle>
     </Card>
   );
 }
