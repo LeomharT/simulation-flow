@@ -4,10 +4,17 @@ type LimitedHandleProps = HandleProps & {
   connectionCount: number;
 };
 
-export default function LimitedHandle(props: LimitedHandleProps) {
+export default function LimitedHandle({ connectionCount, ...props }: LimitedHandleProps) {
   const connection = useNodeConnections({
     handleType: props.type,
   });
 
-  return <Handle {...props} isConnectable={connection.length < props.connectionCount} />;
+  return (
+    <Handle
+      {...props}
+      isConnectable={
+        connection.filter((value) => value.targetHandle === props.id).length < connectionCount
+      }
+    />
+  );
 }
