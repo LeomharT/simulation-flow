@@ -23,7 +23,7 @@ const classNames = {
 export default function LightNode(props: LightNodeProps) {
   const connections = useNodeConnections();
 
-  function isValidPowerSource() {
+  function isPowerSourceValid() {
     if (connections.length < 2) return false;
     return connections.every((item) => item.sourceHandle === item.targetHandle);
   }
@@ -42,16 +42,16 @@ export default function LightNode(props: LightNodeProps) {
         <Item
           variant='muted'
           size='xs'
-          className={clsx('p-1', isValidPowerSource() ? 'bg-green-100' : 'bg-rose-100')}
+          className={clsx('p-1', isPowerSourceValid() ? 'bg-green-100' : 'bg-rose-100')}
         >
           <ItemMedia variant='icon'>
-            {isValidPowerSource() ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
+            {isPowerSourceValid() ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
           </ItemMedia>
           <ItemContent>
             <ItemTitle>
               Connection
               <ItemDescription>
-                {isValidPowerSource() ? (
+                {isPowerSourceValid() ? (
                   <IconCheck className='w-3! h-3!' />
                 ) : (
                   <IconX className='w-3! h-3!' />
