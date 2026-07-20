@@ -1,5 +1,5 @@
 import Toolbar from '@/components/toolbar';
-import { edgeTypes } from '@/edges';
+import { EDGE_TYPES, edgeTypes } from '@/edges';
 import { nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import {
@@ -38,7 +38,7 @@ export default function App() {
     useShallow((store) => ({ addingType: store.addingType, cancelAdding: store.cancelAdding }))
   );
 
-  const { screenToFlowPosition, updateNode, getNode } = useReactFlow();
+  const { screenToFlowPosition, updateNode } = useReactFlow();
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -47,22 +47,24 @@ export default function App() {
     (changes) => setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
     []
   );
+
   const onEdgesChange: ReactFlowProps['onEdgesChange'] = useCallback(
     (changes) => setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     []
   );
+
   const onConnect: ReactFlowProps['onConnect'] = useCallback((params) => {
     const edge = {
       ...params,
     } as Edge;
 
     if (params.sourceHandle !== params.targetHandle) {
-      edge.type = 'buttonEdge';
+      edge.type = EDGE_TYPES.ERROR;
       edge.animated = true;
     }
 
-    const sourceNode = getNode(params.source);
-    const targetNode = getNode(params.target);
+    // const sourceNode = getNode(params.source);
+    // const targetNode = getNode(params.target);
 
     setEdges((edgesSnapshot) => addEdge(edge, edgesSnapshot));
   }, []);
@@ -82,7 +84,6 @@ export default function App() {
     if (!addingType) return;
 
     cancelAdding();
-
     updateNode('draft', { id: crypto.randomUUID() });
   }
 

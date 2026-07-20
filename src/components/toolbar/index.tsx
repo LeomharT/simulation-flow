@@ -1,11 +1,12 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { IconClockPlay, IconPlayerPlayFilled } from '@tabler/icons-react';
+import { IconClockPlay } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import AddNode from './components/AddNode';
 import AIAgent from './components/AIAgent';
+import RunBtn from './components/RunBtn';
 import ZoomControls from './components/ZoomControls';
 
 const classNames = {
@@ -40,13 +41,7 @@ export default function Toolbar() {
                 Run History
               </TooltipContent>
             </Tooltip>
-            <Button
-              size='lg'
-              className={clsx(classNames.button, 'bg-emerald-500 hover:bg-emerald-400')}
-            >
-              <IconPlayerPlayFilled />
-              Run
-            </Button>
+            <RunBtn />
           </div>
         </CardContent>
       </Card>

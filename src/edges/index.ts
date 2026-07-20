@@ -1,5 +1,9 @@
-import ButtonEdge from './ButtonEdge';
+import ErrorEdge from './ErrorEdge';
+
+export const EDGE_TYPES = {
+  ERROR: 'errorEdge',
+};
 
 export const edgeTypes = {
-  buttonEdge: ButtonEdge,
+  [EDGE_TYPES.ERROR]: ErrorEdge,
 };

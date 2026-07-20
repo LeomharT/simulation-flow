@@ -7,7 +7,7 @@ import {
   type EdgeProps,
 } from '@xyflow/react';
 
-export default function ButtonEdge(props: EdgeProps) {
+export default function ErrorEdge(props: EdgeProps) {
   const { setEdges } = useReactFlow();
 
   const [edgePath, labelX, labelY] = getBezierPath({
