@@ -74,7 +74,7 @@ export default function AIAgent() {
                   <EmptyMedia variant='icon'>
                     <IconMessageCircleUp />
                   </EmptyMedia>
-                  <EmptyTitle>Morning, shadcn!</EmptyTitle>
+                  <EmptyTitle>Morning, students!</EmptyTitle>
                   <EmptyDescription>
                     What are we working on today? Press send to start a new conversation
                   </EmptyDescription>

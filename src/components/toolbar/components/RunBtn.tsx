@@ -1,7 +1,8 @@
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { EDGE_TYPES } from '@/edges';
-import { IconPlayerPlayFilled } from '@tabler/icons-react';
+import { IconAlertCircle, IconPlayerPlayFilled } from '@tabler/icons-react';
 import { useEdges } from '@xyflow/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -17,8 +18,7 @@ export default function RunBtn() {
     setLoading(false);
 
     if (edges.some((value) => value.type === EDGE_TYPES.ERROR)) {
-      console.error('Wrong Simulation');
-      toast('Some thing wrong. Please your workflow');
+      toast(<MessageError />, { style: { padding: 0 } });
     }
   }
 
@@ -32,5 +32,17 @@ export default function RunBtn() {
       {loading ? <Spinner data-icon='inline-start' /> : <IconPlayerPlayFilled />}
       Run
     </Button>
+  );
+}
+
+function MessageError() {
+  return (
+    <Alert className='max-w-md border-red-200 bg-red-50 text-red-500'>
+      <IconAlertCircle />
+      <AlertTitle>Simulation failed</AlertTitle>
+      <AlertDescription>
+        Your simulation work flow is failed. Please cheke your work flow nodes and try again.
+      </AlertDescription>
+    </Alert>
   );
 }

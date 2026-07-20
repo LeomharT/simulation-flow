@@ -1,3 +1,4 @@
+import NodeConfig from '@/components/config';
 import Toolbar from '@/components/toolbar';
 import { EDGE_TYPES, edgeTypes } from '@/edges';
 import { nodeTypes } from '@/nodes';
@@ -16,7 +17,7 @@ import {
   type OnNodesChange,
   type ReactFlowProps,
 } from '@xyflow/react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 const initialNodes: Node[] = [
@@ -34,8 +35,12 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];
 
 export default function App() {
-  const { addingType, cancelAdding } = useSimulationStore(
-    useShallow((store) => ({ addingType: store.addingType, cancelAdding: store.cancelAdding }))
+  const { addingType, cancelAdding, setSelectNode } = useSimulationStore(
+    useShallow((store) => ({
+      addingType: store.addingType,
+      cancelAdding: store.cancelAdding,
+      setSelectNode: store.setSelectNode,
+    }))
   );
 
   const { screenToFlowPosition, updateNode } = useReactFlow();
@@ -80,6 +85,15 @@ export default function App() {
     updateNode('draft', { position });
   }
 
+  function onNodeClick(_: React.MouseEvent, node: Node) {
+    if (addingType) {
+      onPlaceNode();
+      return;
+    }
+
+    setSelectNode(node);
+  }
+
   function onPlaceNode() {
     if (!addingType) return;
 
@@ -89,6 +103,7 @@ export default function App() {
 
   return (
     <div className='w-dvw h-dvh'>
+      <NodeConfig />
       <ReactFlow
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
@@ -100,7 +115,7 @@ export default function App() {
         onConnect={onConnect}
         onPaneMouseMove={onPaneMouseMove}
         onPaneClick={onPlaceNode}
-        onNodeClick={onPlaceNode}
+        onNodeClick={onNodeClick}
         minZoom={0.25}
         maxZoom={2}
         fitView
