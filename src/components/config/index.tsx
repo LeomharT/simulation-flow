@@ -10,14 +10,7 @@ import {
 import { useReactFlow } from '@xyflow/react';
 import { useShallow } from 'zustand/shallow';
 import { Button } from '../ui/button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from '../ui/drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '../ui/drawer';
 import {
   Empty,
   EmptyContent,
@@ -27,6 +20,7 @@ import {
   EmptyTitle,
 } from '../ui/empty';
 import { Input } from '../ui/input';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import LightNodeConfig from './components/LightNodeConfig';
 import PowerNodeConfig from './components/PowerNodeConfig';
 
@@ -59,22 +53,27 @@ export default function NodeConfig() {
   return (
     <Drawer open={!!selectedNode} direction='right' modal={false} onClose={cancelSelect}>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className='pb-0'>
           <DrawerTitle className='flex justify-between'>
             <div className='flex items-center gap-2'>
               {icons[currentNode?.type as keyof typeof icons]}
               <span>{currentNode?.type}</span>
             </div>
             <DrawerClose asChild>
-              <Button size='icon' variant='outline'>
+              <Button size='icon' variant='ghost'>
                 <IconX />
               </Button>
             </DrawerClose>
           </DrawerTitle>
-          <DrawerDescription>
-            <Input placeholder='Insert description here' className='border-0' />
-          </DrawerDescription>
         </DrawerHeader>
+        <div className='px-2'>
+          <Input placeholder='Insert description here' className='border-0 focus:shadow-none!' />
+          <Tabs defaultValue='settings'>
+            <TabsList variant='line'>
+              <TabsTrigger value='settings'>SETTINGS</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
         <div className='px-4 no-scrollbar overflow-y-auto'>
           {currentNode?.type === NODE_TYPES.POWER ? (
             <PowerNodeConfig node={currentNode} />

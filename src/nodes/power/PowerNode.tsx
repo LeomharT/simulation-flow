@@ -7,17 +7,10 @@ import {
   IconMinus,
   IconPlus,
 } from '@tabler/icons-react';
-import { Handle, Position, type NodeProps } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 import clsx from 'clsx';
 import BaseNode from '../BaseNode';
-
-type PowerNodeProps = NodeProps & {
-  data: {
-    label: string;
-    voltage: string;
-    ampere: string;
-  };
-};
+import type { PowerNodeProps } from './type';
 
 const classNames = {
   handle: clsx('w-2.5! h-2.5! rounded-full flex items-center justify-center'),
@@ -33,7 +26,7 @@ export default function PowerNode(props: PowerNodeProps) {
             <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-blue-600 text-white'>
               <IconBoltFilled className='w-3! h-3!' />
             </div>
-            Power Source
+            {props.data.name ?? 'Power Source'}
           </CardTitle>
         </CardHeader>
         <CardContent>
