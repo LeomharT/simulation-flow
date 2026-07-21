@@ -41,8 +41,9 @@ export default function PowerNodeConfig(props: PowerNodeConfigProps) {
       <form onSubmit={form.onSubmit((value) => console.log(value))}>
         <FieldSet>
           <FieldGroup>
-            <FormField id='label' label='Device Name' error={fields.name.error}>
+            <FormField id='name' label='Device Name' error={fields.name.error}>
               <Input
+                id='name'
                 defaultValue={fields.name.defaultValue}
                 onChange={fields.name.onChange}
                 placeholder='Insert device name here'
