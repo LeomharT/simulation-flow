@@ -1,7 +1,7 @@
 import NodeConfig from '@/components/config';
 import Toolbar from '@/components/toolbar';
 import { EDGE_TYPES, edgeTypes } from '@/edges';
-import { nodeTypes } from '@/nodes';
+import { NODE_TYPES, nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import {
   addEdge,
@@ -30,6 +30,7 @@ const initialNodes: Node[] = [
     data: { voltage: '12V', ampere: '3A' },
   },
   { id: 'lightNode', position: { x: 0, y: 100 }, type: 'lightNode', data: { color: '#7f22fe' } },
+  { id: 'sensorNode', position: { x: 300, y: -100 }, type: NODE_TYPES.SENSOR, data: {} },
 ];
 
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];

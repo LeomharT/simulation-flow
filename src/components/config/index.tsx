@@ -23,6 +23,7 @@ import { Input } from '../ui/input';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import LightNodeConfig from './components/LightNodeConfig';
 import PowerNodeConfig from './components/PowerNodeConfig';
+import SensorNodeConfig from './components/SensorNodeConfig';
 
 const icons: Record<string, ReactNode> = {
   [NODE_TYPES.POWER]: (
@@ -79,6 +80,8 @@ export default function NodeConfig() {
             <PowerNodeConfig node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.LIGHT ? (
             <LightNodeConfig node={currentNode} />
+          ) : currentNode?.type === NODE_TYPES.SENSOR ? (
+            <SensorNodeConfig />
           ) : (
             <PlaceHolder />
           )}
@@ -95,7 +98,7 @@ function PlaceHolder() {
         <EmptyMedia variant='icon'>
           <IconFolder />
         </EmptyMedia>
-        <EmptyTitle>No Selected Node</EmptyTitle>
+        <EmptyTitle>No Config Node</EmptyTitle>
         <EmptyDescription>
           You haven&apos;t select any node yet. Get started by click node on the pane.
         </EmptyDescription>

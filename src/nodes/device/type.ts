@@ -8,3 +8,14 @@ export type LightNodeData = {
 export type LightNodeProps = NodeProps & {
   data: LightNodeData;
 };
+
+export type SensorNodeData = {
+  name?: string;
+  mode: 'random' | 'fixed';
+  payload: string | Record<string, string | number> | string[] | number[];
+  intervalMs: number;
+};
+
+export type SensorNodeProps = NodeProps & {
+  data: SensorNodeData;
+};
