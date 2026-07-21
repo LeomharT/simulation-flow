@@ -78,25 +78,31 @@ export default function NodeConfig() {
           {currentNode?.type === NODE_TYPES.POWER ? (
             <PowerNodeConfig node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.LIGHT ? (
-            <LightNodeConfig />
+            <LightNodeConfig node={currentNode} />
           ) : (
-            <Empty>
-              <EmptyHeader>
-                <EmptyMedia variant='icon'>
-                  <IconFolder />
-                </EmptyMedia>
-                <EmptyTitle>No Selected Node</EmptyTitle>
-                <EmptyDescription>
-                  You haven&apos;t select any node yet. Get started by click node on the pane.
-                </EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent className='flex-row justify-center gap-2'>
-                <Button>Selecte Node</Button>
-              </EmptyContent>
-            </Empty>
+            <PlaceHolder />
           )}
         </div>
       </DrawerContent>
     </Drawer>
+  );
+}
+
+function PlaceHolder() {
+  return (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia variant='icon'>
+          <IconFolder />
+        </EmptyMedia>
+        <EmptyTitle>No Selected Node</EmptyTitle>
+        <EmptyDescription>
+          You haven&apos;t select any node yet. Get started by click node on the pane.
+        </EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent className='flex-row justify-center gap-2'>
+        <Button>Selecte Node</Button>
+      </EmptyContent>
+    </Empty>
   );
 }

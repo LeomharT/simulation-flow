@@ -29,7 +29,7 @@ const initialNodes: Node[] = [
     type: 'powerNode',
     data: { voltage: '12V', ampere: '3A' },
   },
-  { id: 'lightNode', position: { x: 0, y: 100 }, type: 'lightNode', data: {} },
+  { id: 'lightNode', position: { x: 0, y: 100 }, type: 'lightNode', data: { color: '#7f22fe' } },
 ];
 
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];

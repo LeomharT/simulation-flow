@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import type { nodeTypes } from '@/nodes';
+import { NODE_TYPES, type nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
 import { IconBoltFilled, IconBulbFilled, IconPlus, IconSearch } from '@tabler/icons-react';
@@ -55,9 +55,12 @@ export default function AddNode() {
     };
 
     switch (type) {
-      case 'powerNode':
+      case NODE_TYPES.POWER:
         newNode.data.voltage = '12V';
         newNode.data.ampere = '3A';
+        break;
+      case NODE_TYPES.LIGHT:
+        newNode.data.color = '#7f22fe';
         break;
       default:
         break;
