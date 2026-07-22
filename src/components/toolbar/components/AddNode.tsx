@@ -11,7 +11,14 @@ import { Separator } from '@/components/ui/separator';
 import { NODE_TYPES, type nodeTypes } from '@/nodes';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
-import { IconBoltFilled, IconBulbFilled, IconPlus, IconSearch } from '@tabler/icons-react';
+import {
+  IconAiGateway,
+  IconBoltFilled,
+  IconBulbFilled,
+  IconCpu,
+  IconPlus,
+  IconSearch,
+} from '@tabler/icons-react';
 import { useKeyPress, useReactFlow, type Node } from '@xyflow/react';
 import clsx from 'clsx';
 import type React from 'react';
@@ -50,7 +57,7 @@ export default function AddNode() {
     const newNode: Node = {
       id: 'draft',
       type,
-      data: { label: type },
+      data: {},
       position,
     };
 
@@ -61,6 +68,12 @@ export default function AddNode() {
         break;
       case NODE_TYPES.LIGHT:
         newNode.data.color = '#7f22fe';
+        newNode.data.voltage = '12V';
+        newNode.data.ampere = '3A';
+        break;
+      case NODE_TYPES.SENSOR:
+        newNode.data.voltage = '24V';
+        newNode.data.ampere = '5A';
         break;
       default:
         break;
@@ -96,18 +109,33 @@ export default function AddNode() {
         </InputGroup>
         <Separator className='-ml-2.5 -mr-2.5 w-[inherit]!' />
         <div className={classNames.label}>Power</div>
-        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, 'powerNode')}>
+        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, NODE_TYPES.POWER)}>
           <div className='rounded p-1 bg-blue-600 text-white'>
             <IconBoltFilled />
           </div>
           Power Source
         </Button>
         <div className={classNames.label}>Device</div>
-        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, 'lightNode')}>
-          <div className='rounded p-1 bg-violet-600 text-white'>
-            <IconBulbFilled />
+        <div className='flex flex-col gap-1'>
+          <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, NODE_TYPES.LIGHT)}>
+            <div className='rounded p-1 bg-violet-600 text-white'>
+              <IconBulbFilled />
+            </div>
+            Light
+          </Button>
+          <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, NODE_TYPES.SENSOR)}>
+            <div className='rounded p-1 bg-violet-600 text-white'>
+              <IconCpu />
+            </div>
+            Sensor
+          </Button>
+        </div>
+        <div className={classNames.label}>Gateway</div>
+        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, NODE_TYPES.GATEWAY)}>
+          <div className='rounded p-1 bg-emerald-600 text-white'>
+            <IconAiGateway />
           </div>
-          Light
+          Gateway
         </Button>
       </PopoverContent>
     </Popover>

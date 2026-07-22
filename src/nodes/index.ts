@@ -6,7 +6,7 @@ import PowerNode from './power/PowerNode';
 export const NODE_TYPES = {
   POWER: 'powerNode',
   LIGHT: 'lightNode',
-  SENSOR: 'sensor',
+  SENSOR: 'sensorNode',
   GATEWAY: 'gatewayNode',
 } as const;
 

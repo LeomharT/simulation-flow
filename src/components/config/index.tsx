@@ -3,6 +3,7 @@ import { useSimulationStore } from '@/store';
 import {
   IconBoltFilled,
   IconBulbFilled,
+  IconCpu,
   IconFolder,
   IconX,
   type ReactNode,
@@ -34,6 +35,11 @@ const icons: Record<string, ReactNode> = {
   [NODE_TYPES.LIGHT]: (
     <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-violet-600 text-white'>
       <IconBulbFilled className='w-3! h-3!' />
+    </div>
+  ),
+  [NODE_TYPES.SENSOR]: (
+    <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-violet-600 text-white'>
+      <IconCpu />
     </div>
   ),
   default: '',
@@ -81,7 +87,7 @@ export default function NodeConfig() {
           ) : currentNode?.type === NODE_TYPES.LIGHT ? (
             <LightNodeConfig key={currentNode.id} node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.SENSOR ? (
-            <SensorNodeConfig key={currentNode.id} />
+            <SensorNodeConfig key={currentNode.id} node={currentNode} />
           ) : (
             <PlaceHolder />
           )}
