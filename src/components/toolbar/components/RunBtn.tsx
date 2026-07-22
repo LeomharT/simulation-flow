@@ -17,8 +17,20 @@ export default function RunBtn() {
     await new Promise((r) => setTimeout(r, 1500));
     setLoading(false);
 
+    // const needsPower = nodes.filter(
+    //   (n) => n.type === NODE_TYPES.SENSOR || n.type === NODE_TYPES.LIGHT
+    // );
+
+    // const invalidNodes = needsPower.filter((n) => !validateNodePower(n.id, nodes, edges));
+
+    // if (invalidNodes.length > 0) {
+    //   toast(<MessageError />, { style: { padding: 0 } });
+    //   return;
+    // }
+
     if (edges.some((value) => value.type === EDGE_TYPES.ERROR)) {
       toast(<MessageError />, { style: { padding: 0 } });
+      return;
     }
   }
 

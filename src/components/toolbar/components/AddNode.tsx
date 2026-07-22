@@ -74,6 +74,14 @@ export default function AddNode() {
       case NODE_TYPES.SENSOR:
         newNode.data.voltage = '24V';
         newNode.data.ampere = '5A';
+        newNode.data.fieldName = 'key';
+        newNode.data.payload = 'value';
+        newNode.data.mode = 'fixed';
+        newNode.data.intervalMs = '1000';
+        break;
+      case NODE_TYPES.GATEWAY:
+        newNode.data.voltage = '24V';
+        newNode.data.ampere = '5A';
         break;
       default:
         break;

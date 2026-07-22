@@ -3,6 +3,7 @@ import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/comp
 import LimitedHandle from '@/handle/LimitedHandle';
 import { usePowerSourceValidation } from '@/hooks/usePowerSourceValidation';
 import {
+  IconBinaryTree2,
   IconCategory2,
   IconCheck,
   IconCircuitCell,
@@ -89,12 +90,12 @@ export default function SensorNode(props: SensorNodeProps) {
         </CardContent>
       </Card>
       <Handle
-        id='dataSource'
+        id='dateSource'
         type='source'
         className={clsx(classNames.handle, 'bg-violet-500! translate-y-7')}
         position={Position.Left}
       >
-        <IconPlus className={classNames.icon} />
+        <IconBinaryTree2 className={clsx(classNames.icon, 'stroke-2!')} />
       </Handle>
       <LimitedHandle
         id='positive'

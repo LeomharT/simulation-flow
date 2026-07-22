@@ -59,15 +59,16 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [{ id: 'n1-n2', source: 'n1', target: 'n2', type: 'smoothstep' }];
 
 export default function App() {
-  const { addingType, cancelAdding, setSelectNode } = useSimulationStore(
+  const { addingType, cancelAdding, setSelectNode, cancelSelect } = useSimulationStore(
     useShallow((store) => ({
       addingType: store.addingType,
       cancelAdding: store.cancelAdding,
       setSelectNode: store.setSelectNode,
+      cancelSelect: store.cancelSelect,
     }))
   );
 
-  const { screenToFlowPosition, updateNode } = useReactFlow();
+  const { screenToFlowPosition, updateNode, getNode } = useReactFlow();
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -82,21 +83,30 @@ export default function App() {
     []
   );
 
-  const onConnect: ReactFlowProps['onConnect'] = useCallback((params) => {
-    const edge = {
-      ...params,
-    } as Edge;
+  const onConnect: ReactFlowProps['onConnect'] = useCallback(
+    (params) => {
+      const targetNode = getNode(params.target);
 
-    if (params.sourceHandle !== params.targetHandle) {
-      edge.type = EDGE_TYPES.ERROR;
-      edge.animated = true;
-    }
+      const edge = {
+        ...params,
+      } as Edge;
 
-    // const sourceNode = getNode(params.source);
-    // const targetNode = getNode(params.target);
+      if (targetNode?.type === NODE_TYPES.GATEWAY) {
+        edge.animated = true;
+        if (params.targetHandle === 'positive' || params.targetHandle === 'negative') {
+          edge.type = EDGE_TYPES.ERROR;
+        }
+      } else {
+        if (params.sourceHandle !== params.targetHandle) {
+          edge.type = EDGE_TYPES.ERROR;
+          edge.animated = true;
+        }
+      }
 
-    setEdges((edgesSnapshot) => addEdge(edge, edgesSnapshot));
-  }, []);
+      setEdges((edgesSnapshot) => addEdge(edge, edgesSnapshot));
+    },
+    [getNode]
+  );
 
   function onPaneMouseMove(e: React.MouseEvent) {
     if (!addingType) return;
@@ -134,6 +144,7 @@ export default function App() {
         nodes={nodes}
         edges={edges}
         deleteKeyCode={['Delete']}
+        onDelete={cancelSelect}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
