@@ -37,8 +37,21 @@ const initialNodes: Node[] = [
   },
   {
     id: 'sensorNode',
-    position: { x: 300, y: -100 },
+    position: { x: 500, y: -100 },
     type: NODE_TYPES.SENSOR,
+    data: {
+      voltage: '24V',
+      ampere: '5A',
+      fieldName: 'key',
+      payload: 'value',
+      mode: 'fixed',
+      intervalMs: '1000',
+    },
+  },
+  {
+    id: 'gatewayNode',
+    position: { x: 250, y: 30 },
+    type: NODE_TYPES.GATEWAY,
     data: { voltage: '24V', ampere: '5A' },
   },
 ];

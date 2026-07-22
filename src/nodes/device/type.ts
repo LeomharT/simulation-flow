@@ -16,8 +16,9 @@ export type SensorNodeData = {
   voltage: string;
   ampere: string;
   mode: 'random' | 'fixed';
-  payload: string | Record<string, string | number> | string[] | number[];
-  intervalMs: number;
+  fieldName: string;
+  payload: string | string[] | number[];
+  intervalMs: string;
 };
 
 export type SensorNodeProps = NodeProps & {

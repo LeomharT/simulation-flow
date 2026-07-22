@@ -5,6 +5,7 @@ import { usePowerSourceValidation } from '@/hooks/usePowerSourceValidation';
 import {
   IconCategory2,
   IconCheck,
+  IconCircuitCell,
   IconCircuitSwitchClosed,
   IconCircuitSwitchOpen,
   IconCpu,
@@ -33,7 +34,7 @@ export default function SensorNode(props: SensorNodeProps) {
             <div className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-violet-600 text-white'>
               <IconCpu className='w-3! h-3!' />
             </div>
-            {props.data.name ?? 'Sensor'}
+            {props.data.name || 'Sensor'}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -58,15 +59,31 @@ export default function SensorNode(props: SensorNodeProps) {
               </ItemTitle>
             </ItemContent>
           </Item>
+          <Item variant='muted' size='xs' className='mb-1 p-1'>
+            <ItemMedia variant='icon'>
+              <IconCircuitCell />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                Power
+                <ItemDescription>
+                  {props.data.voltage} · {props.data.ampere}
+                </ItemDescription>
+              </ItemTitle>
+            </ItemContent>
+          </Item>
           <Item variant='muted' size='xs' className='p-1'>
             <ItemMedia variant='icon'>
               <IconCategory2 />
             </ItemMedia>
             <ItemContent>
               <ItemTitle className='w-full justify-between'>
-                Data <ItemDescription>Random</ItemDescription>
+                {props.data.fieldName}
+                <ItemDescription>{props.data.mode.toUpperCase()}</ItemDescription>
               </ItemTitle>
-              <ItemDescription>{'{ data: "value" }'}</ItemDescription>
+              <ItemDescription className='max-w-30 overflow-hidden text-nowrap text-ellipsis'>
+                {props.data.payload}
+              </ItemDescription>
             </ItemContent>
           </Item>
         </CardContent>
@@ -74,7 +91,7 @@ export default function SensorNode(props: SensorNodeProps) {
       <Handle
         id='dataSource'
         type='source'
-        className={clsx(classNames.handle, 'bg-violet-500!')}
+        className={clsx(classNames.handle, 'bg-violet-500! translate-y-7')}
         position={Position.Left}
       >
         <IconPlus className={classNames.icon} />

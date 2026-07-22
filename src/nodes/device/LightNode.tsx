@@ -5,6 +5,7 @@ import { usePowerSourceValidation } from '@/hooks/usePowerSourceValidation';
 import {
   IconBulbFilled,
   IconCheck,
+  IconCircuitCell,
   IconCircuitSwitchClosed,
   IconCircuitSwitchOpen,
   IconMinus,
@@ -45,7 +46,7 @@ export default function LightNode(props: LightNodeProps) {
           <Item
             variant='muted'
             size='xs'
-            className={clsx('p-1', isPowerSourceValid ? 'bg-green-100' : 'bg-rose-100')}
+            className={clsx('p-1 mb-1', isPowerSourceValid ? 'bg-green-100' : 'bg-rose-100')}
           >
             <ItemMedia variant='icon'>
               {isPowerSourceValid ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
@@ -59,6 +60,19 @@ export default function LightNode(props: LightNodeProps) {
                   ) : (
                     <IconX className='w-3! h-3!' />
                   )}
+                </ItemDescription>
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+          <Item variant='muted' size='xs' className='mb-1 p-1'>
+            <ItemMedia variant='icon'>
+              <IconCircuitCell />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                Power
+                <ItemDescription>
+                  {props.data.voltage} · {props.data.ampere}
                 </ItemDescription>
               </ItemTitle>
             </ItemContent>
