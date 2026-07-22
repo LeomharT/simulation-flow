@@ -77,11 +77,11 @@ export default function NodeConfig() {
         </div>
         <div className='px-4 no-scrollbar overflow-y-auto'>
           {currentNode?.type === NODE_TYPES.POWER ? (
-            <PowerNodeConfig node={currentNode} />
+            <PowerNodeConfig key={currentNode.id} node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.LIGHT ? (
-            <LightNodeConfig node={currentNode} />
+            <LightNodeConfig key={currentNode.id} node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.SENSOR ? (
-            <SensorNodeConfig />
+            <SensorNodeConfig key={currentNode.id} />
           ) : (
             <PlaceHolder />
           )}

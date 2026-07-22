@@ -11,6 +11,8 @@ export type LightNodeProps = NodeProps & {
 
 export type SensorNodeData = {
   name?: string;
+  voltage: string;
+  ampere: string;
   mode: 'random' | 'fixed';
   payload: string | Record<string, string | number> | string[] | number[];
   intervalMs: number;
