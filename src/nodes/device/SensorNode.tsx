@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
 import LimitedHandle from '@/handle/LimitedHandle';
+import { usePowerSourceValidation } from '@/hooks/usePowerSourceValidation';
 import {
   IconCategory2,
   IconCheck,
@@ -11,7 +12,7 @@ import {
   IconPlus,
   IconX,
 } from '@tabler/icons-react';
-import { Handle, Position, useNodeConnections } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 import clsx from 'clsx';
 import BaseNode from '../BaseNode';
 import type { SensorNodeProps } from './type';
@@ -22,12 +23,7 @@ const classNames = {
 };
 
 export default function SensorNode(props: SensorNodeProps) {
-  const connections = useNodeConnections();
-
-  function isPowerSourceValid() {
-    if (connections.length < 2) return false;
-    return connections.every((item) => item.sourceHandle === item.targetHandle);
-  }
+  const isPowerSourceValid = usePowerSourceValidation(props.data.voltage, props.data.ampere);
 
   return (
     <BaseNode {...props}>
@@ -44,16 +40,16 @@ export default function SensorNode(props: SensorNodeProps) {
           <Item
             variant='muted'
             size='xs'
-            className={clsx('p-1 mb-1', isPowerSourceValid() ? 'bg-green-100' : 'bg-rose-100')}
+            className={clsx('p-1 mb-1', isPowerSourceValid ? 'bg-green-100' : 'bg-rose-100')}
           >
             <ItemMedia variant='icon'>
-              {isPowerSourceValid() ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
+              {isPowerSourceValid ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
             </ItemMedia>
             <ItemContent>
               <ItemTitle>
                 Connection
                 <ItemDescription>
-                  {isPowerSourceValid() ? (
+                  {isPowerSourceValid ? (
                     <IconCheck className='w-3! h-3!' />
                   ) : (
                     <IconX className='w-3! h-3!' />

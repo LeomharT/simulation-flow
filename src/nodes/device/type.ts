@@ -2,6 +2,8 @@ import type { NodeProps } from '@xyflow/react';
 
 export type LightNodeData = {
   color: string;
+  voltage: string;
+  ampere: string;
   name?: string;
 };
 

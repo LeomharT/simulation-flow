@@ -29,7 +29,12 @@ const initialNodes: Node[] = [
     type: 'powerNode',
     data: { voltage: '12V', ampere: '3A' },
   },
-  { id: 'lightNode', position: { x: 0, y: 100 }, type: 'lightNode', data: { color: '#7f22fe' } },
+  {
+    id: 'lightNode',
+    position: { x: 0, y: 100 },
+    type: 'lightNode',
+    data: { color: '#7f22fe', voltage: '12V', ampere: '3A' },
+  },
   {
     id: 'sensorNode',
     position: { x: 300, y: -100 },

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
 import LimitedHandle from '@/handle/LimitedHandle';
+import { usePowerSourceValidation } from '@/hooks/usePowerSourceValidation';
 import {
   IconBulbFilled,
   IconCheck,
@@ -10,7 +11,7 @@ import {
   IconPlus,
   IconX,
 } from '@tabler/icons-react';
-import { Position, useNodeConnections } from '@xyflow/react';
+import { Position } from '@xyflow/react';
 import clsx from 'clsx';
 import BaseNode from '../BaseNode';
 import type { LightNodeProps } from './type';
@@ -21,12 +22,7 @@ const classNames = {
 };
 
 export default function LightNode(props: LightNodeProps) {
-  const connections = useNodeConnections();
-
-  function isPowerSourceValid() {
-    if (connections.length < 2) return false;
-    return connections.every((item) => item.sourceHandle === item.targetHandle);
-  }
+  const isPowerSourceValid = usePowerSourceValidation(props.data.voltage, props.data.ampere);
 
   return (
     <BaseNode {...props}>
@@ -37,7 +33,7 @@ export default function LightNode(props: LightNodeProps) {
               className='w-5 h-5 rounded shadow-xs p-1 flex items-center justify-center bg-violet-600 text-white'
               style={{
                 background: props.data.color,
-                boxShadow: isPowerSourceValid() ? `0 0 8px ${props.data.color}` : undefined,
+                boxShadow: isPowerSourceValid ? `0 0 8px ${props.data.color}` : undefined,
               }}
             >
               <IconBulbFilled className='w-3! h-3!' />
@@ -49,16 +45,16 @@ export default function LightNode(props: LightNodeProps) {
           <Item
             variant='muted'
             size='xs'
-            className={clsx('p-1', isPowerSourceValid() ? 'bg-green-100' : 'bg-rose-100')}
+            className={clsx('p-1', isPowerSourceValid ? 'bg-green-100' : 'bg-rose-100')}
           >
             <ItemMedia variant='icon'>
-              {isPowerSourceValid() ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
+              {isPowerSourceValid ? <IconCircuitSwitchClosed /> : <IconCircuitSwitchOpen />}
             </ItemMedia>
             <ItemContent>
               <ItemTitle>
                 Connection
                 <ItemDescription>
-                  {isPowerSourceValid() ? (
+                  {isPowerSourceValid ? (
                     <IconCheck className='w-3! h-3!' />
                   ) : (
                     <IconX className='w-3! h-3!' />
