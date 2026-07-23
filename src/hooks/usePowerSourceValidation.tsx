@@ -10,6 +10,9 @@ export function usePowerSourceValidation(voltage: string, ampere: string) {
 
   const sourceData = useNodesData(positiveSourceId ?? null)?.data as PowerNodeData | undefined;
 
+  if (positiveConns[0]?.sourceHandle !== positiveConns[0]?.targetHandle) return false;
+  if (negativeConns[0]?.sourceHandle !== negativeConns[0]?.targetHandle) return false;
+
   if (!positiveSourceId || !negativeSourceId) return false;
 
   if (positiveSourceId !== negativeSourceId) return false;
