@@ -52,7 +52,15 @@ const initialNodes: Node[] = [
     id: 'gatewayNode',
     position: { x: 250, y: 30 },
     type: NODE_TYPES.GATEWAY,
-    data: { voltage: '24V', ampere: '5A' },
+    data: {
+      voltage: '24V',
+      ampere: '5A',
+      dataInputs: [
+        { id: '1', url: 'localhost:8080', protocol: 'http://' },
+        { id: '2', url: 'localhost:8081', protocol: 'http://' },
+        // { id: '3', url: 'localhost:8081', protocol: 'http://' },
+      ],
+    },
   },
 ];
 
@@ -88,9 +96,7 @@ export default function App() {
       const targetNode = getNode(params.target);
       const sourceNode = getNode(params.source);
 
-      const edge = {
-        ...params,
-      } as Edge;
+      const edge = { ...params } as Edge;
 
       if (targetNode?.type === NODE_TYPES.GATEWAY && sourceNode?.type === NODE_TYPES.SENSOR) {
         edge.animated = true;

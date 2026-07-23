@@ -27,7 +27,7 @@ const classNames = {
 export default function GatewayNode(props: GatewayNodeProps) {
   const isPowerSourceValid = usePowerSourceValidation(props.data.voltage, props.data.ampere);
 
-  const dateInputs = [0, 1];
+  const dateInputs = props.data.dataInputs;
 
   return (
     <BaseNode {...props}>
@@ -77,12 +77,18 @@ export default function GatewayNode(props: GatewayNodeProps) {
           </Item>
           <div className='flex flex-col gap-1'>
             {dateInputs.map((value) => (
-              <Item key={value} variant='muted' size='xs' className='p-1'>
+              <Item key={value.id} variant='muted' size='xs' className='p-1'>
                 <ItemMedia variant='icon'>
                   <IconCloudDataConnection />
                 </ItemMedia>
                 <ItemContent>
-                  <ItemTitle>Input</ItemTitle>
+                  <ItemTitle>
+                    Input
+                    <ItemDescription className='max-w-24 text-nowrap text-ellipsis overflow-hidden'>
+                      {value.protocol}
+                      {value.url}
+                    </ItemDescription>
+                  </ItemTitle>
                 </ItemContent>
               </Item>
             ))}
@@ -91,12 +97,13 @@ export default function GatewayNode(props: GatewayNodeProps) {
       </Card>
       {dateInputs.map((value, index) => (
         <Handle
-          key={value}
-          id={'dateInput' + index}
+          key={value.id}
+          id={'dateInput' + value.id}
           type='target'
           className={clsx(classNames.handle, 'bg-emerald-500!')}
           style={{
-            translate: `0 calc(20px + ${index * 30}px)`,
+            transform: `translate(50%, 0px))`,
+            top: `calc(110px + ${index * 32}px)`,
             scale: '1 0.9',
           }}
           position={Position.Right}
