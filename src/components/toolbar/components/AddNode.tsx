@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { NODE_TYPES, type nodeTypes } from '@/nodes';
+import { GATEWAY_PROTOCOL } from '@/nodes/gateway/type';
 import { useSimulationStore } from '@/store';
 import { useToggle } from '@mantine/hooks';
 import {
@@ -19,7 +20,7 @@ import {
   IconPlus,
   IconSearch,
 } from '@tabler/icons-react';
-import { useKeyPress, useReactFlow, type Node } from '@xyflow/react';
+import { useKeyPress, useNodes, useReactFlow, type Node } from '@xyflow/react';
 import clsx from 'clsx';
 import type React from 'react';
 import { useEffect } from 'react';
@@ -31,6 +32,8 @@ const classNames = {
 
 export default function AddNode() {
   const [open, setOpen] = useToggle();
+
+  const nodes = useNodes();
 
   const escPress = useKeyPress('Escape');
 
@@ -82,6 +85,9 @@ export default function AddNode() {
       case NODE_TYPES.GATEWAY:
         newNode.data.voltage = '24V';
         newNode.data.ampere = '5A';
+        newNode.data.dataInputs = [
+          { id: 'dataInput1', url: 'localhost:8080', protocol: GATEWAY_PROTOCOL[0] },
+        ];
         break;
       default:
         break;
@@ -139,7 +145,12 @@ export default function AddNode() {
           </Button>
         </div>
         <div className={classNames.label}>Gateway</div>
-        <Button variant='ghost' size='lg' onClick={(e) => addNewNode(e, NODE_TYPES.GATEWAY)}>
+        <Button
+          variant='ghost'
+          size='lg'
+          disabled={!!nodes.filter((value) => value.type === NODE_TYPES.GATEWAY).length}
+          onClick={(e) => addNewNode(e, NODE_TYPES.GATEWAY)}
+        >
           <div className='rounded p-1 bg-emerald-600 text-white'>
             <IconAiGateway />
           </div>

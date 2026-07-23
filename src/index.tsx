@@ -11,7 +11,7 @@ root.render(
   <React.StrictMode>
     <TooltipProvider>
       <ReactFlowProvider>
-        <Toaster position='top-center' />
+        <Toaster />
         <App />
       </ReactFlowProvider>
     </TooltipProvider>

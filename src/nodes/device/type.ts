@@ -17,7 +17,7 @@ export type SensorNodeData = {
   ampere: string;
   mode: 'random' | 'fixed';
   fieldName: string;
-  payload: string | string[] | number[];
+  payload: string;
   intervalMs: string;
 };
 

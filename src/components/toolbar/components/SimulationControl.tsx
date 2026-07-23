@@ -2,14 +2,19 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { EDGE_TYPES } from '@/edges';
-import { IconAlertCircle, IconPlayerPlayFilled } from '@tabler/icons-react';
-import { useEdges } from '@xyflow/react';
-import { useState } from 'react';
+import { run } from '@/lib/simulation';
+import { IconAlertCircle, IconPlayerPlayFilled, IconPlayerStopFilled } from '@tabler/icons-react';
+import { useEdges, useNodes } from '@xyflow/react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function RunBtn() {
   const [loading, setLoading] = useState(false);
+  const [running, setRunning] = useState(false);
 
+  const intervels = useRef<number[] | undefined>(undefined);
+
+  const nodes = useNodes();
   const edges = useEdges();
 
   async function runSimulation() {
@@ -29,10 +34,30 @@ export default function RunBtn() {
     // }
 
     if (edges.some((value) => value.type === EDGE_TYPES.ERROR)) {
-      toast(<MessageError />, { style: { padding: 0 } });
+      toast(<MessageError />, { style: { padding: 0 }, position: 'top-center' });
       return;
     }
+
+    intervels.current = run(nodes, edges);
+
+    setRunning(true);
   }
+
+  function stopSimulation() {
+    setRunning(false);
+    toast.dismiss();
+    if (intervels.current) {
+      for (const i of intervels.current) clearInterval(i);
+    }
+  }
+
+  if (running)
+    return (
+      <Button size='lg' className='px-5! bg-rose-500 hover:bg-rose-400' onClick={stopSimulation}>
+        <IconPlayerStopFilled />
+        Stop
+      </Button>
+    );
 
   return (
     <Button

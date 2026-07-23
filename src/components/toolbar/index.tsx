@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import { Separator } from '../ui/separator';
 import AddNode from './components/AddNode';
 import AIAgent from './components/AIAgent';
-import RunBtn from './components/RunBtn';
 import RunHistory from './components/RunHistory';
+import SimulationControl from './components/SimulationControl';
 import ZoomControls from './components/ZoomControls';
 
 const classNames = {
@@ -30,7 +30,7 @@ export default function Toolbar() {
           <Separator orientation='vertical' className={classNames.sepearator} />
           <div className='flex flex-row gap-2'>
             <RunHistory />
-            <RunBtn />
+            <SimulationControl />
           </div>
         </CardContent>
       </Card>
