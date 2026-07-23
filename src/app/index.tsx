@@ -56,8 +56,8 @@ const initialNodes: Node[] = [
       voltage: '24V',
       ampere: '5A',
       dataInputs: [
-        { id: '1', url: 'localhost:8080', protocol: 'http://' },
-        { id: '2', url: 'localhost:8081', protocol: 'http://' },
+        { id: 'dataInput1', url: 'localhost:8080', protocol: 'http://' },
+        { id: 'dataInput2', url: 'localhost:8081', protocol: 'http://' },
         // { id: '3', url: 'localhost:8081', protocol: 'http://' },
       ],
     },

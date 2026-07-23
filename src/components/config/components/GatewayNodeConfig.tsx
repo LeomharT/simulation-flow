@@ -18,7 +18,7 @@ import {
 import { GATEWAY_PROTOCOL, type GatewayNodeData } from '@/nodes/gateway/type';
 import { useForm } from '@mantine/form';
 import { IconChevronDown, IconPlus, IconTrash } from '@tabler/icons-react';
-import { useReactFlow, type Node } from '@xyflow/react';
+import { useEdges, useReactFlow, type Node } from '@xyflow/react';
 import PowerFields from './PowerFields';
 
 type GatewayNodeConfigProps = {
@@ -26,7 +26,9 @@ type GatewayNodeConfigProps = {
 };
 
 export default function GatewayNodeConfig(props: GatewayNodeConfigProps) {
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData, deleteElements } = useReactFlow();
+
+  const edges = useEdges();
 
   const form = useForm<GatewayNodeData>({
     mode: 'uncontrolled',
@@ -67,6 +69,10 @@ export default function GatewayNodeConfig(props: GatewayNodeConfigProps) {
 
   function deleteDataInput(id: string) {
     if (data.dataInputs.length <= 1) return;
+
+    deleteElements({
+      edges: edges.filter((value) => value.targetHandle === id),
+    });
 
     updateNodeData(props.node.id, (node) => {
       const data = node.data as GatewayNodeData;

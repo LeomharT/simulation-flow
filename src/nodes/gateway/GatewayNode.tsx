@@ -98,7 +98,7 @@ export default function GatewayNode(props: GatewayNodeProps) {
       {dateInputs.map((value, index) => (
         <Handle
           key={value.id}
-          id={'dateInput' + value.id}
+          id={value.id}
           type='target'
           className={clsx(classNames.handle, 'bg-emerald-500!')}
           style={{
