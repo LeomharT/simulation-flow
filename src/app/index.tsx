@@ -86,12 +86,13 @@ export default function App() {
   const onConnect: ReactFlowProps['onConnect'] = useCallback(
     (params) => {
       const targetNode = getNode(params.target);
+      const sourceNode = getNode(params.source);
 
       const edge = {
         ...params,
       } as Edge;
 
-      if (targetNode?.type === NODE_TYPES.GATEWAY) {
+      if (targetNode?.type === NODE_TYPES.GATEWAY && sourceNode?.type === NODE_TYPES.SENSOR) {
         edge.animated = true;
         if (params.targetHandle === 'positive' || params.targetHandle === 'negative') {
           edge.type = EDGE_TYPES.ERROR;

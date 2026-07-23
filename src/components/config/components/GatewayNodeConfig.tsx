@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import type { GatewayNodeData } from '@/nodes/gateway/type';
 import { useForm } from '@mantine/form';
 import { useReactFlow, type Node } from '@xyflow/react';
+import PowerFields from './PowerFields';
 
 type GatewayNodeConfigProps = {
   node: Node;
@@ -24,6 +25,8 @@ export default function GatewayNodeConfig(props: GatewayNodeConfigProps) {
 
   const fields = {
     name: form.getInputProps('name'),
+    voltage: form.getInputProps('voltage'),
+    ampere: form.getInputProps('ampere'),
   };
 
   return (
@@ -39,6 +42,7 @@ export default function GatewayNodeConfig(props: GatewayNodeConfigProps) {
             />
           </FormField>
         </FieldGroup>
+        <PowerFields fields={fields} />
       </FieldSet>
     </div>
   );
