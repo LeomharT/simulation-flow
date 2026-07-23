@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { EDGE_TYPES } from '@/edges';
 import { run } from '@/lib/simulation';
+import { validateNodePower } from '@/lib/validateNodePower';
+import { NODE_TYPES } from '@/nodes';
 import { IconAlertCircle, IconPlayerPlayFilled, IconPlayerStopFilled } from '@tabler/icons-react';
 import { useEdges, useNodes } from '@xyflow/react';
 import { useRef, useState } from 'react';
@@ -22,16 +24,16 @@ export default function RunBtn() {
     await new Promise((r) => setTimeout(r, 1500));
     setLoading(false);
 
-    // const needsPower = nodes.filter(
-    //   (n) => n.type === NODE_TYPES.SENSOR || n.type === NODE_TYPES.LIGHT
-    // );
+    const needsPower = nodes.filter(
+      (n) => n.type === NODE_TYPES.SENSOR || n.type === NODE_TYPES.LIGHT
+    );
 
-    // const invalidNodes = needsPower.filter((n) => !validateNodePower(n.id, nodes, edges));
+    const invalidNodes = needsPower.filter((n) => !validateNodePower(n.id, nodes, edges));
 
-    // if (invalidNodes.length > 0) {
-    //   toast(<MessageError />, { style: { padding: 0 } });
-    //   return;
-    // }
+    if (invalidNodes.length > 0) {
+      toast(<MessageError />, { style: { padding: 0 }, position: 'top-center' });
+      return;
+    }
 
     if (edges.some((value) => value.type === EDGE_TYPES.ERROR)) {
       toast(<MessageError />, { style: { padding: 0 }, position: 'top-center' });

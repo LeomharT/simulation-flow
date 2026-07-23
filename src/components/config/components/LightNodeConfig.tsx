@@ -48,7 +48,6 @@ export default function LightNodeConfig(props: LightNodeConfigProps) {
                 placeholder='Insert device name here'
               />
             </FormField>
-
             <FormField id='color' label='Light Color' inline error={fields.color.error}>
               <Popover>
                 <PopoverTrigger>

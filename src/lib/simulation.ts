@@ -62,7 +62,7 @@ export function run(nodes: Node[], edges: Edge[]) {
 
       intervels.push(
         setInterval(() => {
-          payload[data.fieldName] = Math.random().toString();
+          payload[data.fieldName] = Math.random().toFixed(2);
 
           toast(result[key].protocol + result[key].url, {
             id: toastId,
