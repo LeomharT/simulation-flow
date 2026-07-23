@@ -1,5 +1,5 @@
 import { FormField } from '@/components/formField';
-import { FieldGroup, FieldSet } from '@/components/ui/field';
+import { FieldDescription, FieldGroup, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Item, ItemContent } from '@/components/ui/item';
 import {
@@ -49,8 +49,9 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
     <div className='w-full py-5'>
       <form onSubmit={form.onSubmit((value) => console.log(value))}>
         <FieldSet>
-          <FieldGroup>
-            <FormField id='name' label='Device Name' error={fields.name.error}>
+          <FieldGroup className='gap-3'>
+            <FieldDescription>Device</FieldDescription>
+            <FormField id='name' label='Device Name' inline error={fields.name.error}>
               <Input
                 id='name'
                 defaultValue={fields.name.defaultValue}
@@ -58,7 +59,10 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
                 placeholder='Insert device name here'
               />
             </FormField>
-            <FormField id='voltage' label='Voltage' error={fields.voltage.error}>
+          </FieldGroup>
+          <FieldGroup className='gap-3'>
+            <FieldDescription>Power</FieldDescription>
+            <FormField id='voltage' label='Voltage' inline error={fields.voltage.error}>
               <Select
                 defaultValue={fields.voltage.defaultValue}
                 onValueChange={fields.voltage.onChange}
@@ -75,7 +79,7 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
                 </SelectContent>
               </Select>
             </FormField>
-            <FormField id='ampere' label='Ampere' error={fields.ampere.error}>
+            <FormField id='ampere' label='Ampere' inline error={fields.ampere.error}>
               <Select
                 defaultValue={fields.ampere.defaultValue}
                 onValueChange={fields.ampere.onChange}
@@ -93,7 +97,10 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
                 </SelectContent>
               </Select>
             </FormField>
-            <FormField id='mode' label='Mode' error={fields.mode.error}>
+          </FieldGroup>
+          <FieldGroup className='gap-3'>
+            <FieldDescription>Data</FieldDescription>
+            <FormField id='mode' label='Mode' inline error={fields.mode.error}>
               <Select defaultValue={fields.mode.defaultValue} onValueChange={fields.mode.onChange}>
                 <SelectTrigger id='mode' className='w-full'>
                   <SelectValue placeholder='Select mode' />
@@ -106,7 +113,7 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
                 </SelectContent>
               </Select>
             </FormField>
-            <FormField id='intervalMs' label='IntervalMs' error={fields.intervalMs.error}>
+            <FormField id='intervalMs' label='IntervalMs' inline error={fields.intervalMs.error}>
               <Input
                 id='intervalMs'
                 required
@@ -115,7 +122,7 @@ export default function SensorNodeConfig(props: SensorNodeConfigProps) {
                 onChange={fields.intervalMs.onChange}
               />
             </FormField>
-            <FormField id='fieldName' label='FieldName' error={fields.fieldName.error}>
+            <FormField id='fieldName' label='FieldName' inline error={fields.fieldName.error}>
               <Input
                 id='fieldName'
                 required

@@ -23,6 +23,7 @@ import {
 } from '../ui/empty';
 import { Input } from '../ui/input';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
+import GatewayNodeConfig from './components/GatewayNodeConfig';
 import LightNodeConfig from './components/LightNodeConfig';
 import PowerNodeConfig from './components/PowerNodeConfig';
 import SensorNodeConfig from './components/SensorNodeConfig';
@@ -94,6 +95,8 @@ export default function NodeConfig() {
             <LightNodeConfig key={currentNode.id} node={currentNode} />
           ) : currentNode?.type === NODE_TYPES.SENSOR ? (
             <SensorNodeConfig key={currentNode.id} node={currentNode} />
+          ) : currentNode?.type === NODE_TYPES.GATEWAY ? (
+            <GatewayNodeConfig key={currentNode.id} node={currentNode} />
           ) : (
             <PlaceHolder />
           )}

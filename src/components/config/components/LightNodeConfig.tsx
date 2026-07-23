@@ -46,8 +46,8 @@ export default function LightNodeConfig(props: LightNodeConfigProps) {
     <div className='w-full py-5'>
       <form onSubmit={form.onSubmit((value) => console.log(value))}>
         <FieldSet>
-          <FieldGroup>
-            <FormField id='name' label='Device Name' error={fields.name.error}>
+          <FieldGroup className='gap-3'>
+            <FormField id='name' label='Device Name' inline error={fields.name.error}>
               <Input
                 id='name'
                 defaultValue={fields.name.defaultValue}
@@ -55,7 +55,7 @@ export default function LightNodeConfig(props: LightNodeConfigProps) {
                 placeholder='Insert device name here'
               />
             </FormField>
-            <FormField id='voltage' label='Voltage' error={fields.voltage.error}>
+            <FormField id='voltage' label='Voltage' inline error={fields.voltage.error}>
               <Select
                 defaultValue={fields.voltage.defaultValue}
                 onValueChange={fields.voltage.onChange}
@@ -72,7 +72,7 @@ export default function LightNodeConfig(props: LightNodeConfigProps) {
                 </SelectContent>
               </Select>
             </FormField>
-            <FormField id='ampere' label='Ampere' error={fields.ampere.error}>
+            <FormField id='ampere' label='Ampere' inline error={fields.ampere.error}>
               <Select
                 defaultValue={fields.ampere.defaultValue}
                 onValueChange={fields.ampere.onChange}
@@ -90,7 +90,7 @@ export default function LightNodeConfig(props: LightNodeConfigProps) {
                 </SelectContent>
               </Select>
             </FormField>
-            <FormField id='color' label='Light Color' error={fields.color.error}>
+            <FormField id='color' label='Light Color' inline error={fields.color.error}>
               <Popover>
                 <PopoverTrigger>
                   <InputGroup>
