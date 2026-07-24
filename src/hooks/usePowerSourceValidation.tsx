@@ -14,7 +14,6 @@ export function usePowerSourceValidation(voltage: string, ampere: string) {
   if (negativeConns[0]?.sourceHandle !== negativeConns[0]?.targetHandle) return false;
 
   if (!positiveSourceId || !negativeSourceId) return false;
-
   if (positiveSourceId !== negativeSourceId) return false;
 
   return sourceData?.voltage === voltage && sourceData?.ampere === ampere;

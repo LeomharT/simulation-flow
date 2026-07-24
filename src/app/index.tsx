@@ -23,6 +23,7 @@ import { useShallow } from 'zustand/shallow';
 const initialNodes: Node[] = [
   // { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
   // { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
+  { id: 'noteNode', position: { x: 0, y: -500 }, type: 'noteNode', data: {} },
   {
     id: 'powerNode',
     position: { x: 0, y: -100 },
@@ -131,6 +132,8 @@ export default function App() {
       onPlaceNode();
       return;
     }
+
+    if (node.type === NODE_TYPES.NOTE) return;
 
     setSelectNode(node);
   }
